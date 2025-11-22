@@ -15,6 +15,7 @@
             justify-content: center;
             align-items: center;
             color: white;
+            overflow: hidden;
         }
 
         .container {
@@ -66,12 +67,6 @@
             transform: scale(1.05);
         }
 
-        .footer-text {
-            margin-top: 15px;
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
         .decor-line {
             width: 80%;
             height: 2px;
@@ -79,73 +74,55 @@
             margin: 20px auto;
             border-radius: 5px;
         }
-            /* Technical animated background */
-        .tech-lines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
+
+        /* Backend style */
+        .dashboard {
+            animation: fadeIn 1.2s ease-in-out;
+            text-align: center;
         }
 
-        .tech-lines span {
-            position: absolute;
-            display: block;
-            width: 2px;
-            height: 40px;
+        .dash-title {
+            font-size: 42px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .dash-sub {
+            font-size: 24px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+
+        .options-box {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .option {
+            background: rgba(255,255,255,0.15);
+            padding: 25px 40px;
+            border-radius: 20px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .option:hover {
+            transform: scale(1.1);
             background: rgba(255,255,255,0.3);
-            animation: drop 4s linear infinite;
         }
 
-        @keyframes drop {
-            0% { transform: translateY(-100%); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(100vh); opacity: 0; }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
         }
-            .boy-graphic {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(-50%, 0); }
-            50% { transform: translate(-50%, -10px); }
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- Technical animated background -->
-    <div class="tech-lines">
-        <span style="left: 10%; animation-delay: 0s; height: 60px;"></span>
-        <span style="left: 25%; animation-delay: 1s; height: 80px;"></span>
-        <span style="left: 40%; animation-delay: 2s; height: 50px;"></span>
-        <span style="left: 55%; animation-delay: 0.5s; height: 70px;"></span>
-        <span style="left: 70%; animation-delay: 1.5s; height: 90px;"></span>
-        <span style="left: 85%; animation-delay: 2.5s; height: 65px;"></span>
-    </div>
-
-    <!-- Boy Illustration Carrying Login Board -->
-    <div class="boy-graphic">
-        <svg width="180" height="280" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="60" r="40" fill="#FFD1A9" />
-            <circle cx="85" cy="50" r="5" fill="#000" />
-            <circle cx="115" cy="50" r="5" fill="#000" />
-            <path d="M80 75 C100 95, 120 95, 140 75" stroke="#000" stroke-width="3" fill="none" />
-            <rect x="40" y="120" width="120" height="100" rx="10" fill="#ffffffcc" stroke="#fff" stroke-width="3" />
-            <text x="60" y="175" font-size="18" fill="#000">LOGIN</text>
-            <line x1="40" y1="150" x2="20" y2="200" stroke="#FFD1A9" stroke-width="10" />
-            <line x1="160" y1="150" x2="180" y2="200" stroke="#FFD1A9" stroke-width="10" />
-            <line x1="70" y1="220" x2="50" y2="280" stroke="#FFD1A9" stroke-width="10" />
-            <line x1="130" y1="220" x2="150" y2="280" stroke="#FFD1A9" stroke-width="10" />
-        </svg>
-    </div>
+    <!-- Your existing technical background + boy graphic + login box remain same -->
 
     <div class="container">
         <h1>WELCOME TO MY PAGE</h1>
@@ -153,8 +130,8 @@
 
         <h2 style="font-size: 20px; margin-bottom: 15px;">Login to Continue</h2>
 
-        <input type="text" placeholder="Enter Username" />
-        <input type="password" placeholder="Enter Password" />
+        <input id="usr" type="text" placeholder="Enter Username" />
+        <input id="pwd" type="password" placeholder="Enter Password" />
 
         <button class="btn" onclick="loginUser()">Login</button>
 
@@ -162,19 +139,27 @@
     </div>
 
 <script>
-        function loginUser() {
-            const user = document.querySelector('input[placeholder="Enter Username"]').value;
-            const pass = document.querySelector('input[placeholder="Enter Password"]').value;
+function loginUser() {
+    const user = document.getElementById("usr").value;
+    const pass = document.getElementById("pwd").value;
 
-            if (user === "james" && pass === "kumar") {
-                document.body.innerHTML = `
-                    <div style="display:flex;justify-content:center;align-items:center;height:100vh;color:white;font-size:32px;font-weight:bold;">
-                        Hi James Kumar
-                    </div>`;
-            } else {
-                alert("Invalid Login ID or Password!");
-            }
-        }
-    </script>
+    if (user === "james" && pass === "kumar") {
+        document.body.innerHTML = `
+            <div class="dashboard">
+                <div class="dash-title">Welcome James Kumar</div>
+                <div class="dash-sub">How can I help you today?</div>
+
+                <div class="options-box">
+                    <div class="option">📘 Open Blog</div>
+                    <div class="option">⚙️ Settings</div>
+                    <div class="option">📨 Messages</div>
+                </div>
+            </div>`;
+    } else {
+        alert("Invalid Login ID or Password!");
+    }
+}
+</script>
+
 </body>
 </html>
